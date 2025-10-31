@@ -10,7 +10,7 @@ public class Tile {
      * Creates a new Tile , associated to NULLPLAYER (no player) .
      */
     public Tile() {
-        this.content = Pawn.NULLPAWN;
+        this.content = Player.NULLPLAYER.getPawn();
     }
 
     /**
