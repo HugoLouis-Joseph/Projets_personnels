@@ -4,17 +4,21 @@ import player.Pawn;
 
 public class Board {
 
-    public static int LENGTH = 10;
-    public static int HEIGHT = 6;
+    public static int LENGTH = 0;
+    public static int HEIGHT = 0;
 
     protected Tile tiles[][];
     //Array of indexes where the first empty Tile of every column is at . Initially at HEIGHT-1 , which is the bottommost position .
     protected int lineIndex[];
+    protected Boolean finished = false;
 
     /**
      * Creates a new Board object , and initializes its contents with new Tiles , which are associated to NULLPLAYER (no player) .
      */
-    public Board() {
+    public Board(int length , int height) {
+        Board.HEIGHT = height;
+        Board.LENGTH = length;
+
         this.tiles = new Tile[Board.HEIGHT][Board.LENGTH];
         this.lineIndex = new int[Board.LENGTH];
 
@@ -64,6 +68,65 @@ public class Board {
         }
         //Putting the pawn at the last empty Tile of the column given , in the Board.
         this.tiles[index][column].setContent(pawn);
+        this.checkVictory(index,column);
         return true;
+    }
+
+    /**
+     * Checks if the placed pawn ends the game or not , if yes , a flag is set up for marking .
+     * @param line line index of the placed pawn
+     * @param column column index of the placed pawn
+     */
+    public void checkVictory(int line , int column) {
+        //Sum of same pawns encountered (init at 1 because self is counted)
+        int sum;
+        for (Direction dir : Direction.values()) {
+            sum = 1;
+
+            //Checking for pawns in the direction .
+            int offsetLine = line + dir.getX();
+            int offsetColumn = column + dir.getY();
+
+            while (this.inBoard(offsetLine,offsetColumn) && this.tiles[offsetLine][offsetColumn].getContent() == this.tiles[line][column].getContent()) {
+                offsetLine += dir.getX();
+                offsetColumn += dir.getY();
+                sum++;
+            }
+
+            //Now checking for pawns in the opposite direction .
+            offsetLine = line - dir.getX();
+            offsetColumn = column - dir.getY();
+
+            while (this.inBoard(offsetLine,offsetColumn) && this.tiles[offsetLine][offsetColumn].getContent() == this.tiles[line][column].getContent()) {
+                offsetLine -= dir.getX();
+                offsetColumn -= dir.getY();
+                sum++;
+            }
+
+            //If at least four pawns of the same Player are in line , said Player wins , we set up a flag to indicate game end .
+            if (sum > 3) {
+                this.finished = true;
+                //Pointless to keep going .
+                break;
+            }
+        }
+    }
+
+    /**
+     * Checks if given coordinates are out of bounds or not
+     * @param line line index
+     * @param column column index
+     * @return a Boolean equal to true if the coordinates are in the board
+     */
+    public Boolean inBoard(int line ,int column) {
+        return (line > 0 && line < Board.HEIGHT) && (column > 0 && column < Board.LENGTH);
+    }
+
+    /**
+     * Getter for the flag finished
+     * @return the flag
+     */
+    public Boolean isFinished() {
+        return this.finished;
     }
 }

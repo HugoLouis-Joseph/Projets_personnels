@@ -26,6 +26,10 @@ public class Player {
         return this.visual;
     }
 
+    /**
+     * Getter for pawn
+     * @return the pawn
+     */
     public Pawn getPawn() {
         return this.pawn;
     }

@@ -6,12 +6,12 @@ import player.*;
 
 public class Main {
     public static void main(String[] args) {
-        Board board = new Board();
+        Board board = new Board(10,5);
         Player players[] = {new Player("o"),new Player("x")};
         int playerIndex = 0;
         board.displayIntoTerminal();
 
-        for (int i = 0 ; i < 7 ; i++) {
+        while (!board.isFinished()) {
             boolean ok = false;
             while (!ok) {
                 try {
@@ -27,5 +27,7 @@ public class Main {
             }
             board.displayIntoTerminal();
         }
+
+        System.out.println(players[(playerIndex+1)%2].getVisual() + " wins\n");
     }
 }
