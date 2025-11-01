@@ -36,11 +36,11 @@ public class Tile {
         if (this.content instanceof Submarine && ((Submarine)this.content).isSubmerged()) {
             txt += "s";
         }
-        return "./IG/Ebauches/" + txt + ".png";
+        return "src/IG/Ebauches/" + txt + ".png";
     }
 
     public String getImageAir() {
-        return "./IG/Ebauches/Avion/" + this.airContent.getOrientation().getLetter() + ".png";
+        return "src/IG/Ebauches/Avion/" + this.airContent.getOrientation().getLetter() + ".png";
     }
 
     public int getX() {
