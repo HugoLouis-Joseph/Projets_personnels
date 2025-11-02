@@ -119,7 +119,7 @@ public class Board {
      * @return a Boolean equal to true if the coordinates are in the board
      */
     public Boolean inBoard(int line ,int column) {
-        return (line > 0 && line < Board.HEIGHT) && (column > 0 && column < Board.LENGTH);
+        return (line >= 0 && line < Board.HEIGHT) && (column >= 0 && column < Board.LENGTH);
     }
 
     /**
@@ -128,5 +128,13 @@ public class Board {
      */
     public Boolean isFinished() {
         return this.finished;
+    }
+
+    /**
+     * Getter for board
+     * @return the board , which is an array of arrays of Tile .
+     */
+    public Tile[][] getBoard() {
+        return this.tiles;
     }
 }

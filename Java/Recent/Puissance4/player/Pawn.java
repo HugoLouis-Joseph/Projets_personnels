@@ -20,4 +20,11 @@ public class Pawn {
         return this.player.getVisual();
     }
 
+    /**
+     * Getter for swingVisual
+     * @return the Player's swingVisual .
+     */
+    public String getSwingVisual() {
+        return this.player.getSwingVisual();
+    }
 }

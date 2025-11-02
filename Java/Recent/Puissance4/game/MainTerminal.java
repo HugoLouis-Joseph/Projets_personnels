@@ -4,7 +4,7 @@ import board.*;
 import io.Input;
 import player.*;
 
-public class Main {
+public class MainTerminal {
     public static void main(String[] args) {
         Board board = new Board(10,5);
         Player players[] = {new Player("o"),new Player("x")};
@@ -27,7 +27,6 @@ public class Main {
             }
             board.displayIntoTerminal();
         }
-
         System.out.println(players[(playerIndex+1)%2].getVisual() + " wins\n");
     }
 }

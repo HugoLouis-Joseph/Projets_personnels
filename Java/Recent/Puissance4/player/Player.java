@@ -4,6 +4,8 @@ public class Player {
 
     protected String visual;
     protected Pawn pawn;
+    // swingVisual is initially NULL.png because it corresponds to an empty png file which will lead to nothing beeing displayed .
+    protected String swingVisual = "NULL.png";
 
     //Single instance of NULLPLAYER required , used to mark a lack of Player , representation is a space to show emptiness .
     public static Player NULLPLAYER = new Player(" ");
@@ -19,11 +21,31 @@ public class Player {
     }
 
     /**
+     * Creates a new Player object , using a given visual and swingVisual , and creates a Pawn for the Player .
+     * @param visual unused visual , but required
+     * @param swingVisual visual for interface
+     */
+    public Player(String visual , String swingVisual) {
+        //Will later be using an enum for 4 players (at max)
+        this.visual = visual;
+        this.pawn = new Pawn(this);
+        this.swingVisual = swingVisual;
+    }
+
+    /**
      * Getter for visual
      * @return the Player's visual .
      */
     public String getVisual() {
         return this.visual;
+    }
+
+    /**
+     * Getter for swingVisual
+     * @return the Player's swingVisual .
+     */
+    public String getSwingVisual() {
+        return this.swingVisual;
     }
 
     /**
