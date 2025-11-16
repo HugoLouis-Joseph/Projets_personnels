@@ -4,19 +4,25 @@ import java.util.Random;
 import io.*;
 
 public enum Color {
-    BLUE(" b "),RED(" r "),GREEN(" g "),YELLOW("y"),CYAN("c"),MAGENTA("m");
+    BLUE(" b " , java.awt.Color.BLUE),RED(" r ",java.awt.Color.RED),GREEN(" g ",java.awt.Color.GREEN),YELLOW(" y ",java.awt.Color.YELLOW),CYAN(" c ",java.awt.Color.CYAN),MAGENTA(" m ",java.awt.Color.MAGENTA);
 
     // Visual representation for the terminal
     protected String terminalVisual;
+    protected java.awt.Color color;
     // Access to random
     protected static Random ALEA = new Random();
 
-    private Color(String visual) {
+    private Color(String visual , java.awt.Color color) {
         this.terminalVisual = visual;
+        this.color = color;
     }
 
     public String getTerminalVisual() {
         return this.terminalVisual;
+    }
+
+    public java.awt.Color getSwingColor() {
+        return this.color;
     }
 
     /**

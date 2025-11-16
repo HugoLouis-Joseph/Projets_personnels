@@ -30,6 +30,10 @@ public class Tile {
         return this.color;
     }
 
+    public java.awt.Color getSwingColor() {
+        return this.color.getSwingColor();
+    }
+
     public void take() {
         this.isTaken = true;
     }

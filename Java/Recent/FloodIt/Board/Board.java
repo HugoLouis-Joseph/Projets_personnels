@@ -6,8 +6,8 @@ import Direction.Direction;
 
 public class Board {
 
-    protected static int LENGTH = 5;
-    protected static int HEIGHT = 5;
+    public static int LENGTH;
+    public static int HEIGHT;
     protected Tile tiles[][];
 
     // Game ends if numberOfSteps equals MAXSTEPS and listSize is not equal to LENGTH*HEIGHT
@@ -21,7 +21,11 @@ public class Board {
     // Map of lists of neighboring tiles separated by color , when a color is chosen , the corresponding list is emptied into coloredTiles , the size of the list is added to listSize , and new neighboring tiles are then added into the map
     protected HashMap<Color,ArrayList<Tile>> neighbors;
 
-    public Board() {
+    public Board(int length , int height , int tries) {
+        Board.LENGTH = length;
+        Board.HEIGHT = height;
+        Board.MAXSTEPS = tries;
+
         this.coloredTiles = new ArrayList<Tile>();
         this.neighbors = new HashMap<Color,ArrayList<Tile>>();
         // Init of the map so as not to have nullPointerException
@@ -39,6 +43,10 @@ public class Board {
         }
 
         this.recursiveAdd(this.tiles[0][0],this.tiles[0][0].getColor());
+    }
+
+    public Tile[][] getTiles() {
+        return this.tiles;
     }
 
     /**
@@ -87,6 +95,19 @@ public class Board {
      */
     public void playOneStep() {
         Color color = Color.input();
+        this.numberOfSteps++;
+        // Adding the tiles in the list to coloredTiles , and potentially adding their neighbors too to either coloredTiles or to neighbors
+        for (Tile tile : this.neighbors.get(color)) {
+            this.recursiveAdd(tile, color);
+        }
+        this.neighbors.get(color).clear();
+        this.changeColor(color);
+    }
+
+    /**
+     * Plays one step , which increments numberOfSteps , takes a color input , and adds the corresponding tiles contained in the list of the map with the given color as key , using recursiveAdd , and finally changing the color of tiles in coloredTiles
+     */
+    public void playOneSwingStep(Color color) {
         this.numberOfSteps++;
         // Adding the tiles in the list to coloredTiles , and potentially adding their neighbors too to either coloredTiles or to neighbors
         for (Tile tile : this.neighbors.get(color)) {

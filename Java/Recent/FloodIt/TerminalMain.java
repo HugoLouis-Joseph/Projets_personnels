@@ -1,8 +1,8 @@
 import Board.*;
 
-public class Main {
+public class TerminalMain {
     public static void main(String[] args) {
-        Board board = new Board();
+        Board board = new Board(5,5,10);
         board.display();
         while (board.winState() == 0) {
             board.playOneStep();
